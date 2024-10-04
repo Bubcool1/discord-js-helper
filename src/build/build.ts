@@ -1,4 +1,5 @@
-import { SlashCommand, SlashCommandParam, SlashCommandParamType, CommandHandler } from '../index.d';
+import { SlashCommandParamType } from '..';
+import { SlashCommand, SlashCommandParam, CommandHandler } from '../index.d';
 
 export function buildSlashCommand(
   name: string,

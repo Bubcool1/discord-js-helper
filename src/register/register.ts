@@ -1,7 +1,8 @@
 import { Guild, SlashCommandBuilder } from 'discord.js';
 import * as types from '../index.d';
+import { SlashCommandParamType } from '..';
 
-async function reloadSlashCommands(guild: Guild, commands: Array<types.SlashCommand>): Promise<void> {
+export async function reloadSlashCommands(guild: Guild, commands: Array<types.SlashCommand>): Promise<void> {
   const existingCommands = await guild.commands.fetch();
 
   await Promise.all(existingCommands.map((cmd) => cmd.delete()));
@@ -22,9 +23,9 @@ async function reloadSlashCommands(guild: Guild, commands: Array<types.SlashComm
   await Promise.all(newCommands.map((cmd) => guild.commands.create(cmd)));
 }
 
-function buildSlashParam(command: SlashCommandBuilder, param: types.SlashCommandParam): void {
+export function buildSlashParam(command: SlashCommandBuilder, param: types.SlashCommandParam): void {
   switch (param.type) {
-    case types.SlashCommandParamType.string:
+    case SlashCommandParamType.string:
       command.addStringOption((opt) => {
         opt.setName(param.name);
         opt.setRequired(param.required);
@@ -33,7 +34,8 @@ function buildSlashParam(command: SlashCommandBuilder, param: types.SlashCommand
         }
         return opt;
       });
-    case types.SlashCommandParamType.integer:
+      break;
+    case SlashCommandParamType.integer:
       command.addIntegerOption((opt) => {
         opt.setName(param.name);
         opt.setRequired(param.required);
@@ -42,7 +44,8 @@ function buildSlashParam(command: SlashCommandBuilder, param: types.SlashCommand
         }
         return opt;
       });
-    case types.SlashCommandParamType.boolean:
+      break;
+    case SlashCommandParamType.boolean:
       command.addBooleanOption((opt) => {
         opt.setName(param.name);
         opt.setRequired(param.required);
@@ -51,9 +54,8 @@ function buildSlashParam(command: SlashCommandBuilder, param: types.SlashCommand
         }
         return opt;
       });
+      break;
     default:
       throw new Error('Type not yet implemented.');
   }
 }
-
-export default reloadSlashCommands;

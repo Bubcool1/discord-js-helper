@@ -6,6 +6,7 @@ import {
   SlashCommandIntegerOption,
   SlashCommandBooleanOption,
 } from 'discord.js';
+import { SlashCommandParamType } from '.';
 
 export * from './build/build.d';
 export * from './register/register.d';
@@ -22,16 +23,10 @@ export interface SlashCommandHandler {
 export type SlashCommand = {
   name: string;
   description: string;
+  function: CommandHandler;
   params: Array<SlashCommandParam>;
   nsfw: boolean;
-  function: Function;
 };
-
-export enum SlashCommandParamType {
-  string,
-  integer,
-  boolean,
-}
 
 export type SlashCommandParam = {
   name: string;
@@ -40,4 +35,4 @@ export type SlashCommandParam = {
   description: string;
 };
 
-export type CommandHandler = (interaction: Interaction, options: SlashCommandOptions) => void;
+export type CommandHandler = (interaction: Interaction, options: SlashCommandOptions) => any;

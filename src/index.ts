@@ -1,5 +1,8 @@
-import reloadSlashCommands from './register/register';
-import { buildSlashCommand, buildSlashParameter } from './build/build';
+export { reloadSlashCommands } from './register/register';
+export { buildSlashCommand, buildSlashParameter } from './build/build';
 
-export { reloadSlashCommands };
-export { buildSlashCommand, buildSlashParameter };
+export enum SlashCommandParamType {
+  string = 3,
+  boolean = 5,
+  integer = 10,
+}
